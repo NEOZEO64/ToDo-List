@@ -1,0 +1,89 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--style-->
+    <style>
+      h1 {
+        color: gray;
+      }
+      body {
+        background: white;
+      }
+      .card {
+        background: white;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+        padding: 10px;
+        font-size: 20px;
+        overflow: auto;
+        text-overflow: ellipsis;
+      }
+      .card:hover {
+        background: white;
+        box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+      }
+
+      .submit_form {
+        text-align: left;
+        padding: 10px;
+        margin-bottom: 10px;
+        background: white;
+        box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+
+  <body class="container-fluid">
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-info">
+      <strong>{{message}}</strong>
+    </div>
+    {% endfor %} {% endif %}
+
+    <h1>ToDo</h1>
+
+    {% for i in list %}
+    <div class="card">
+      <b>{{i.title}} : {{i.date}}</b>
+      <br />
+      {{i.details}}
+      <form
+        action="/del/{{i.id}}"
+        method="POST"
+        style="padding-right: 4%; padding-bottom: 3%"
+      >
+        {% csrf_token %}
+        <button
+          value="done"
+          type="submit"
+          class="btn btn-primary"
+          style="float: right"
+        >
+          <span class="glyphicon glyphicon-ok"></span>
+        </button>
+      </form>
+    </div>
+    {% endfor%}
+
+    <div class="submit_form">
+      <form method="POST">
+        {% csrf_token %} {{forms|crispy}}
+        <center>
+          <input type="submit" class="btn btn-default" value="add" />
+        </center>
+      </form>
+    </div>
+  </body>
+</html>

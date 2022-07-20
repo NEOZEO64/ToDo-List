@@ -19,6 +19,11 @@
       body {
         background: white;
       }
+
+      cardbody {
+        display: inline-block;
+      }
+
       .card {
         background: white;
         margin-bottom: 10px;
@@ -56,25 +61,26 @@
 
     {% for i in list %}
     <div class="card">
-      <b>{{i.title}} : {{i.date}}</b>
-      <br />
-      {{i.details}}
-      <form
-        action="/del/{{i.id}}"
-        method="POST"
-        style="padding-right: 4%; padding-bottom: 3%"
-      >
-        {% csrf_token %}
-        <button
-          value="done"
-          type="submit"
-          class="btn btn-primary"
-          style="float: right"
+      <div class="cardbody">
+        <form
+          action="/del/{{i.id}}"
+          method="POST"
+          style="display: inline-block"
         >
-          <span class="glyphicon glyphicon-ok"></span>
-        </button>
-      </form>
+          {% csrf_token %}
+          <button
+            value="done"
+            type="submit"
+            class="btn btn-primary"
+            style="display: inline-block"
+          >
+            <span class="glyphicon glyphicon-ok"></span>
+          </button>
+        </form>
+        <b>{{i.title}}</b> : {{i.date}}
+      </div>
     </div>
+  </div>
     {% endfor%}
 
     <div class="submit_form">

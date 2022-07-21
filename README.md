@@ -13,6 +13,10 @@ The website is built with python &amp; django. [This](https://www.geeksforgeeks.
 4. Start the webserver with sqlite etc. locally
    `bash python manage.py runserver`
 
+At the end, you should get something like this:
+
+<img title="Example" alt="example image" src="./example.png">
+
 For further steps, look at the tutorial above. Also, don't expect too efficient, well thought code as I am still a beginner dealing with django & websites.
 
 Have fun with the code!

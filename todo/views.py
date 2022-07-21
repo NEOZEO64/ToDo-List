@@ -31,7 +31,7 @@ def index(request):
             point.stat = "OVER"
             point.style = "background: red;"
 
-        point.date = point.date.strftime("%H:%M %d.%m")
+        point.date = point.date.strftime("%H:%M // %d.%m")
 
     if request.method == "POST":
         form = TodoForm(request.POST)

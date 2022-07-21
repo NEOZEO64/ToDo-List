@@ -17,12 +17,12 @@ def index(request):
         timeDelta = timezone.now() + timedelta(hours=2) - point.date 
         hours, remainder = divmod(timeDelta.total_seconds(), 3600)
         minutes, seconds = divmod(remainder, 60)
-        if hours <-3 or hours >3:
-            point.until = str(int(-hours)) + "h"
+        if int(hours) <-3 or int(hours) >3:
+            point.until = str(abs(int(hours))) + "h"
         elif hours == 0:
-            point.until = str(int(-minutes)) + "min"
+            point.until = str(abs(int(minutes))) + "min"
         else:
-            point.until = "{:02}h {:02}min".format(int(hours), int(minutes))
+            point.until = "{}h {}min".format(abs(int(hours)), abs(int(minutes)))
             
         if hours < 0 or minutes < 0:
             point.stat = "left"

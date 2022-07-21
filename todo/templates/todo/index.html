@@ -20,10 +20,6 @@
         background: white;
       }
 
-      cardbody {
-        display: inline-block;
-      }
-
       .card {
         background: white;
         margin-bottom: 10px;
@@ -35,60 +31,47 @@
         text-overflow: ellipsis;
       }
       .card:hover {
-        background: white;
         box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.3);
       }
 
       .submit_form {
-        text-align: left;
         padding: 10px;
         margin-bottom: 10px;
+        border-radius: 10px;
         background: white;
         box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2);
-        border-radius: 10px;
       }
     </style>
   </head>
 
   <body class="container-fluid">
-    {% if messages %} {% for message in messages %}
-    <div class="alert alert-info">
-      <strong>{{message}}</strong>
-    </div>
-    {% endfor %} {% endif %}
-
     <h1>ToDo</h1>
-
-    {% for i in list %}
+    {% for i in todo_list_elements %}
     <div class="card">
-      <div class="cardbody">
-        <form
-          action="/del/{{i.id}}"
-          method="POST"
-          style="display: inline-block"
+      <form
+        action="/del/{{i.id}}"
+        method="POST"
+        style="float:left"
+      >
+        {% csrf_token %}
+        <button
+          value="done"
+          type="submit"
+          class="btn btn-primary"
         >
-          {% csrf_token %}
-          <button
-            value="done"
-            type="submit"
-            class="btn btn-primary"
-            style="display: inline-block"
-          >
-            <span class="glyphicon glyphicon-ok"></span>
-          </button>
-        </form>
-        <b>{{i.title}}</b> : {{i.date}}
-      </div>
+          <span class="glyphicon glyphicon-ok"></span>
+        </button>
+      </form>
+      <span style="float: left;"><b>&nbsp;{{i.title}}</b> : {{i.until}} {{i.stat}}</span>
+      <span style="float: right;">{{i.date}}</span>
     </div>
   </div>
-    {% endfor%}
+  {% endfor%}
 
     <div class="submit_form">
       <form method="POST">
         {% csrf_token %} {{forms|crispy}}
-        <center>
-          <input type="submit" class="btn btn-default" value="add" />
-        </center>
+        <input type="submit" class="btn btn-primary" value="add" />
       </form>
     </div>
   </body>

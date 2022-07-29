@@ -23,8 +23,8 @@ For further steps, look at the tutorial above. Also, don't expect too efficient,
 ## Troubleshooting Tipps
 
 - If you run into problems regarding the sqlite3 database – such as any columns are missing etc., the following commands could help:
-  `bash python manage.py makemigrations` or
-  `bash python manage.py migrate` or
+  `python manage.py makemigrations` or
+  `python manage.py migrate` or
 - You could also delete all precompiled python files: just delete every "**pycache**" folder.
 
 ...and, if you going to be serious with this project or want to put the project on a server reachable by the internet, CHANGE THE SECRET KEY (located in `todosite/settings.py`)

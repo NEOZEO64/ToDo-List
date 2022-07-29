@@ -12,26 +12,31 @@ def index(request):
     item_list = Todo.objects.order_by("date")
     my_item_list = item_list
     for point in my_item_list:
-        point.date += timedelta(hours=2)
 
-        timeDelta = timezone.now() + timedelta(hours=2) - point.date 
-        hours, remainder = divmod(timeDelta.total_seconds(), 3600)
+        currentTime = timezone.now() + timedelta(hours=2)
+        
+        #point.date is the input date, whereas date2 is the real date in our timezone
+        point.date2 = point.date + timedelta(hours=2)
+        timeDelta = currentTime - point.date2 #time until task should be finished
+
+        hours, remainder = divmod(abs(timeDelta.total_seconds()), 3600)
         minutes, seconds = divmod(remainder, 60)
-        if int(hours) <-3 or int(hours) >3:
+        if hours > 3:
             point.until = str(abs(int(hours))) + "h"
         elif hours == 0:
             point.until = str(abs(int(minutes))) + "min"
         else:
             point.until = "{}h {}min".format(abs(int(hours)), abs(int(minutes)))
             
-        if hours < 0 or minutes < 0:
+        if timeDelta.total_seconds() < 0:
             point.stat = "left"
             point.style = "background: white;"
         else:
             point.stat = "OVER"
             point.style = "background: red;"
+            
 
-        point.date = point.date.strftime("%H:%M // %d.%m")
+        point.date = point.date2.strftime("%H:%M // %d.%m")
 
     if request.method == "POST":
         form = TodoForm(request.POST)
